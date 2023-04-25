@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="子齊的程式筆記#1" />
+        <meta name="author" content="林子齊" />
+        <title>我的.vimrc設定檔</title>
+        <link rel="icon" type="image/x-icon" href="../../assets/icon/book.ico" />
+        <!-- Font Awesome icons (free version)-->
+        <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+        <!-- Google fonts-->
+        <link href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css" />
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css" />
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link href="../../css/styles.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../../code-prettify/prettify.css">
+		<link rel="stylesheet" tyoe="text/css" href="../../css/highlight.css">
+		<script type="text/javascript" src="../../code-prettify/prettify.js"></script>
+    </head>
+    <body>
+        <!-- Navigation-->
+        <nav class="navbar navbar-expand-lg navbar-light" id="mainNav">
+            <div class="container px-4 px-lg-5">
+                <a class="navbar-brand" href="../../content/coding.html">返回上頁</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                    選單
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarResponsive">
+                    <ul class="navbar-nav ms-auto py-4 py-lg-0">
+                        <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="../../index.html">首頁</a></li>
+                        <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="../../branch/about.html">關於我們</a></li>
+                        <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="../../branch/post.html">文章列表</a></li>
+                        <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="../../branch/contact.html">聯絡我們</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <!-- Page Header-->
+        <header class="masthead" style="background-image: url('../../assets/img/about_1.jpeg')">
+            <div class="container position-relative px-4 px-lg-5">
+                <div class="row gx-4 gx-lg-5 justify-content-center">
+                    <div class="col-md-10 col-lg-8 col-xl-7">
+                        <div class="post-heading">
+                            <h1>我的.vimrc設定檔</h1>
+							<h2 class="subheading"><i>April 25 2023</i></h2>
+                            <span class="meta">由<i>林子齊</i>撰寫</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <!-- Post Content-->
+        <article class="mb-4">
+            <div class="container px-4 px-lg-5">
+                <div class="row gx-4 gx-lg-5 justify-content-center">
+                    <div class="col-md-10 col-lg-8 col-xl-7 chroma" style="border:1px solid black">
+                   		<pre><code class="language-vim">&quot; general setting
+syntax on 
+filetype plugin indent on
+set autoindent
+set number
+set relativenumber
+set cursorline
+set shiftwidth=4
+set tabstop=4
+set mouse=a
+set incsearch
+set wrap
+set scrolloff=6
+set noeb
+set t_Co=256
+set foldmethod=manual
+set path+=/usr/local/include/
+
+&quot; compile and run shortcut for c, cpp, python 
+autocmd filetype python nnoremap &lt;Space&gt;c :w &lt;bar&gt; exec '!python3 '.shellescape('%')&lt;CR&gt;
+autocmd filetype c nnoremap &lt;Space&gt;c :w &lt;bar&gt; exec '!gcc '.shellescape('%').' -o '.shellescape('%:r').' &amp;&amp; ./'.shellescape('%:r')&lt;CR&gt;
+autocmd filetype cpp nnoremap &lt;Space&gt;c :w &lt;bar&gt; exec '!g++ '.shellescape('%').' -o '.shellescape('%:r').' &amp;&amp; ./'.shellescape('%:r')&lt;CR&gt;
+autocmd filetype python map &lt;Space&gt;d :call flake8#Flake8()&lt;CR&gt;
+
+&quot; html, css and markdown setting
+let g:user_emmet_install_global = 0
+autocmd filetype html,css EmmetInstall
+autocmd filetype html nnoremap &lt;Space&gt;f ihtml:5
+autocmd filetype html nnoremap -- :set lazyredraw&lt;cr&gt;mhvato&lt;ESC&gt;i&lt;!-- &lt;ESC&gt;vatA --&gt;&lt;ESC&gt;`h:set nolazyredraw&lt;cr&gt;
+autocmd filetype html nnoremap == :set lazyredraw&lt;cr&gt;mhvat&lt;ESC&gt;4xvato&lt;ESC&gt;5X`h:set nolazyredraw&lt;cr&gt;
+let g:user_emmet_leader_key=','
+let g:vim_markdown_no_default_key_mappings = 1
+let g:vim_markdown_toc_autofit = 1
+let g:vim_markdown_math = 1 &quot; LaTex math
+let g:vim_markdown_frontmatter = 1 &quot; YAML Front Matter
+let g:bracey_auto_start_browser = 0
+
+
+call plug#begin()
+
+Plug 'neoclide/coc.nvim'
+Plug 'jiangmiao/auto-pairs'
+Plug 'gruvbox-community/gruvbox'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'preservim/nerdtree'
+Plug 'dense-analysis/ale'
+Plug 'nvie/vim-flake8'
+Plug 'godlygeek/tabular'
+Plug 'instant-markdown/vim-instant-markdown', {'for': 'markdown', 'do': 'yarn install'}
+Plug 'plasticboy/vim-markdown'
+Plug 'mattn/emmet-vim'
+
+call plug#end()
+
+&quot; use &lt;tab&gt; to trigger completion and navigate to the next complete item
+function! CheckBackspace() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+
+inoremap &lt;silent&gt;&lt;expr&gt; &lt;Tab&gt;
+      \ coc#pum#visible() ? coc#pum#next(1) :
+      \ CheckBackspace() ? &quot;\&lt;Tab&gt;&quot; :
+      \ coc#refresh()
+
+&quot; general shortcut
+nnoremap &lt;Space&gt;v &lt;C-w&gt;v &lt;CR&gt; &quot; split window vertically 
+nnoremap &lt;Space&gt;b &lt;C-w&gt;s &lt;CR&gt; &quot; split window horizontally
+nnoremap &lt;Space&gt;m &lt;C-w&gt;= &lt;CR&gt; &quot; make split windows equal width &amp; height
+nnoremap &lt;Space&gt;q &lt;ESC&gt;:close &lt;CR&gt; &quot; close current split window
+nnoremap &lt;Space&gt;h &lt;C-w&gt;h &lt;CR&gt; &quot; move cursor to left window
+nnoremap &lt;Space&gt;j &lt;C-w&gt;j &lt;CR&gt; &quot; move cursor to under window
+nnoremap &lt;Space&gt;k &lt;C-w&gt;k &lt;CR&gt; &quot; move cursor to above window
+nnoremap &lt;Space&gt;l &lt;C-w&gt;l &lt;CR&gt; &quot; move cursor to right window
+nnoremap &lt;Space&gt;n &lt;C-f&gt; &lt;CR&gt; &quot; move cursor to next page
+nnoremap &lt;Space&gt;p &lt;C-b&gt; &lt;CR&gt; &quot; move cursor to previous page
+nnoremap &lt;Space&gt;u &lt;C-r&gt; &lt;CR&gt; &quot; recover undo
+inoremap &lt;Space&gt;e &lt;ESC&gt;:NERDTreeToggle&lt;CR&gt;
+nnoremap &lt;Space&gt;e &lt;ESC&gt;:NERDTreeToggle&lt;CR&gt;
+noremap &lt;Space&gt; &lt;S-n&gt;
+nnoremap &lt;CR&gt; n
+
+&quot; editer colorscheme
+colorscheme gruvbox
+						</code></pre>
+					</div>
+                </div>
+            </div>
+        </article>
+        <!-- Footer-->
+        <footer class="border-top">
+            <div class="container px-4 px-lg-5">
+                <div class="row gx-4 gx-lg-5 justify-content-center">
+                    <div class="col-md-10 col-lg-8 col-xl-7">
+                        <ul class="list-inline text-center">
+                            <li class="list-inline-item">
+                                <a href="#!">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fas fa-circle fa-stack-2x"></i>
+                                        <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                            </li>
+                            <li class="list-inline-item">
+                                <a href="#!">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fas fa-circle fa-stack-2x"></i>
+                                        <i class="fab fa-facebook-f fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                            </li>
+                            <li class="list-inline-item">
+                                <a href="#!">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fas fa-circle fa-stack-2x"></i>
+                                        <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                            </li>
+                        </ul>
+                        <div class="small text-center text-muted fst-italic">Copyright &copy;Lintzuchi 2023</div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        <!-- Bootstrap core JS-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- Core theme JS-->
+        <script src="../../js/scripts.js"></script>
+    </body>
+</html>
